@@ -101,14 +101,14 @@ namespace AdoDotnetTutorial
 
 
 
-                    Console.WriteLine("Student ID : ");
-                    string id = Console.ReadLine();
-                    Console.WriteLine("Student Name : ");
-                    string Name = Console.ReadLine();
-                    Console.WriteLine("Student Gender : ");
-                    string Gender = Console.ReadLine();
-                    Console.WriteLine("Studenf Age :");
-                    string Age = Console.ReadLine();
+                    //Console.WriteLine("Student ID : ");
+                    //string id = Console.ReadLine();
+                    //Console.WriteLine("Student Name : ");
+                    //string Name = Console.ReadLine();
+                    //Console.WriteLine("Student Gender : ");
+                    //string Gender = Console.ReadLine();
+                    //Console.WriteLine("Studenf Age :");
+                    //string Age = Console.ReadLine();
 
                     // string query = "insert into Students values(@Name,@Gender,@Age)";
                     // SqlCommand cmd = new SqlCommand(query, con);
@@ -140,6 +140,56 @@ namespace AdoDotnetTutorial
                     //    Console.WriteLine(a);
                     //}
 
+                    //string query = "select * from Students";
+                    //SqlCommand cmd = new SqlCommand(query, con);
+                    //con.Open();
+                    //using (SqlDataReader dr = cmd.ExecuteReader())
+                    //{
+                    //    Console.WriteLine(dr.FieldCount);
+                    //    Console.WriteLine(dr.HasRows);
+
+                    //    while (dr.Read())
+                    //    {
+                    //        //    Console.WriteLine("id=" + dr["id"] + "Name=" + dr["Name"] + "Gender=" + dr["Gender"] + "Age=" + dr["Age"]);
+
+                    //      //  Console.WriteLine("id=" + dr[0] + "Name=" + dr[1] + "Gender=" + dr[2] + "Age=" + dr[3]);
+
+                    //    }
+                    //}
+                    ////Console.WriteLine(dr.IsClosed);
+                    //con.Close();
+                    //Console.ReadLine();
+                    //string query = "select * from Students";
+                    //SqlDataAdapter sda = new SqlDataAdapter(query, con);
+                    //DataSet ds = new DataSet();
+                    //sda.Fill(ds);
+
+                    //foreach (DataRow row in ds.Tables[0].Rows)
+                    //{
+                    //    Console.WriteLine("{0}{1}{2}{3}",row[0],row[1],row[2],row[3]);
+                    //}
+
+                    //DataTable dsa = new DataTable();
+                    //sda.Fill(dsa);
+
+                    //foreach (DataRow row in dsa.Rows)
+                    //{
+                    //    Console.WriteLine("{0}{1}{2}{3}", row[0], row[1], row[2], row[3]);
+                    //}
+                    //Console.ReadLine();
+                    Console.WriteLine("enter Id of an student -:");
+                    int id = Convert.ToInt32(Console.ReadLine());
+
+                    SqlDataAdapter sda = new SqlDataAdapter();
+                    sda.SelectCommand = new SqlCommand("Sp_studentname", con);
+                    sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    sda.SelectCommand.Parameters.AddWithValue("@id",id);
+                    DataSet ds = new DataSet();
+                    sda.Fill(ds);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        Console.WriteLine("{0}{1}{2}{3}", row[0], row[1], row[2], row[3]);
+                    }
                 }
             }
             catch(SqlException ex)
